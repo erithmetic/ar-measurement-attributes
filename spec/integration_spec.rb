@@ -3,19 +3,6 @@ require File.join(File.dirname(__FILE__),'spec_helper')
 require 'activerecord'
 require 'ar_measurement_attributes'
 
-ARMeasurementAttributes.configure_units do |conf|
-  conf.define :area                  :internal => :square_metres,         :external => :square_feet
-  conf.define :biomass               :internal => :joules,                :external => :cords
-  conf.define :cost                  :internal => :dollars,               :external => :dollars           # according to tradition should be cents
-  conf.define :length                :internal => :kilometres,            :external => :miles             # according to SI should be in metres
-  conf.define :length_per_volume     :internal => :kilometres_per_litre,  :external => :miles_per_gallon
-  conf.define :mass                  :internal => :kilograms,             :external => :pounds
-  conf.define :electrical_energy     :internal => :kilowatt_hours,        :external => :kilowatt_hours
-  conf.define :speed                 :internal => :kilometres_per_hour,   :external => :miles_per_hour
-  conf.define :time                  :internal => :hours,                 :external => :hours             # according to SI should be seconds
-  conf.define :volume                :internal => :litres,                :external => :gallons
-end
-
 class Automobile < ActiveRecord::Base
   percentage :urbanity
   length :weekly_distance_estimate
@@ -32,16 +19,16 @@ end
 
 describe ARMeasurementAttributes do
   def automobile
-    @automobile ||= Automobile.new(
+    @automobile ||= Automobile.create(
       :urbanity => 0.74999999999999999999999,
       :weekly_distance_estimate => 16.09344,
       :weekly_cost_estimate => 45.0)
   end
   def boat
-    @boat ||= Boat.new(:weekly_distance_estimate => 20)
+    @boat ||= Boat.create(:weekly_distance_estimate => 20)
   end
   def candy
-    @candy ||= Candy.new(:price => 12)
+    @candy ||= Candy.create(:price => 12)
   end
 
   it 'should save measurements in metric units' do

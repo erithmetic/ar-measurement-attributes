@@ -33,20 +33,20 @@ describe ARMeasurementAttributes do
 
   it 'should save measurements in metric units' do
     automobile.urbanity.should be_close(0.74999999999999999999999, 0.001)
-    automobile.weekly_distance_estimate.should == 16.09344
+    automobile.weekly_distance_estimate(:metric).should == 16.09344
     automobile.weekly_cost_estimate.should == 45.0
 
-    boat.weekly_distance_estimate.should == 20
+    boat.weekly_distance_estimate(:ugly).should == 20
 
     candy.price.should == 12.0
   end
   it 'should display measurements in imperial units' do
-    automobile.urbanity.humanize.should == "75%"
-    automobile.weekly_distance_estimate.humanize.should == "10 miles"
-    automobile.weekly_cost_estimate.humanize.should == "$45.00"
+    automobile.urbanity(:pretty).should == "75%"
+    automobile.weekly_distance_estimate(:pretty => true).should == "10 miles"
+    automobile.weekly_cost_estimate(true).should == "$45.00"
 
-    boat.weekly_distance_estimate.humanize.should == "10.8 nautical miles"
+    boat.weekly_distance_estimate(:pretty).should == "10.8 nautical miles"
 
-    candy.price.humanize.should == "$12.00"
+    candy.price(:pretty).should == "$12.00"
   end
 end

@@ -1,7 +1,7 @@
 require 'rubygems'
+require 'active_record'
 require File.join(File.dirname(__FILE__),'spec_helper')
-require 'activerecord'
-require 'ar_measurement_attributes'
+require File.join(File.dirname(__FILE__),'..','rails','init')
 
 class Automobile < ActiveRecord::Base
   percentage :urbanity

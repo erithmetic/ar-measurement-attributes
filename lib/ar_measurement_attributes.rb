@@ -31,8 +31,13 @@ module ARMeasurementAttributes
     :pounds => 'lbs',
     :gallons => 'gal'
   }
+
+  def self.measurement_options_for(measurement)
+    DEFAULT_MEASUREMENTS[measurement] || {}
+  end
 end
 
+require 'ar_measurement_attributes/value'
 require 'ar_measurement_attributes/core'
 require 'ar_measurement_attributes/dsl'
 require 'ar_measurement_attributes/class_methods'

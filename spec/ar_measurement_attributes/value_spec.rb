@@ -63,8 +63,8 @@ describe ARMeasurementAttributes::Core do
       @value.label_measurement(23).should == '23mi'
     end
     it 'should prefix a label if the :prefix option is true' do
-      @value.options[:prefix] = true
-      @value.label_measurement(23).should == 'mi23'
+      @value.options[:external] = :dollars
+      @value.label_measurement(23).should == '$23'
     end
     it 'should not label the value if the external representation is nil' do
       @value.options[:external] = nil

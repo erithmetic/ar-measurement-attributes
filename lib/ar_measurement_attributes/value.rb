@@ -57,8 +57,8 @@ module ARMeasurementAttributes
 
       label = ARMeasurementAttributes.label_for(options[:external])
 
-      if options[:prefix]
-        "#{label}#{value}"
+      if label.respond_to?(:keys) && label[:prefix]
+        "#{label[:text]}#{value}"
       else
         "#{value}#{label}"
       end

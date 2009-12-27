@@ -18,15 +18,6 @@ module ARMeasurementAttributes
       self.options = (options || {})
     end
 
-    def options=(val)
-      default_options = ARMeasurementAttributes.measurement_options_for(measurement)
-      if val === true || val == :pretty
-        @options = default_options.merge({ :pretty => true })
-      else
-        @options = default_options.merge(val)
-      end
-    end
-
     def scale
       scale = options[:precision] || options[:scale]
     end

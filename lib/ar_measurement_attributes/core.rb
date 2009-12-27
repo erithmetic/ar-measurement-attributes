@@ -37,6 +37,9 @@ module ARMeasurementAttributes
 
       # Merges default measurement options with DSL-specified options and runtime options
       def compile_options(measurement, dsl_options = {}, runtime_options = {})
+        if runtime_options === true || runtime_options == :pretty
+          runtime_options = { :pretty => true }
+        end
         options = ARMeasurementAttributes.measurement_options_for(measurement)
         options.merge!(dsl_options)
         options.merge!(runtime_options)

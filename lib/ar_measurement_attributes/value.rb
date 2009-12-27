@@ -30,14 +30,21 @@ module ARMeasurementAttributes
 
       args = [options[:internal], options[:external]]
       args << { :scale => scale } if scale
-      internal_value.convert(*args)
+      converted_value = internal_value.convert(*args)
+      if scale == 0
+        converted_value.truncate
+      else
+        converted_value
+      end
     end
 
     # Converts percentage values from a decimal <= 1 to a number <= 100
     def convert_percentage
       percentage = internal_value * 100
 
-      if scale
+      if scale == 0
+        percentage.truncate
+      elsif scale
         ("%.#{scale}f" % percentage).to_f
       else
         percentage

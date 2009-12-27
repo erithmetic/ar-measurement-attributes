@@ -19,11 +19,11 @@ module ARMeasurementAttributes
     :squere_feet => 'ft<sup>2</sup>',
     :cords => ' cords',
     :dollars => { :text => '$', :prefix => true },
-    [:kilometers, :kilometres] => 'km',
-    [:kilometres_per_litre, :kilometers_per_liter] => 'km/l',
+    :kilometres => 'km',
+    :kilometres_per_litre => 'km/l',
     :kilowatt_hours => 'kwh',
-    [:kilometres_per_hour, :kilometers_per_hour] => 'km/h',
-    [:liters, :litres] => 'l',
+    :kilometres_per_hour => 'km/h',
+    :litres => 'l',
     :hours => 'h',
     :miles => 'mi',
     :miles_per_hour => 'mph',
@@ -34,6 +34,10 @@ module ARMeasurementAttributes
 
   def self.measurement_options_for(measurement)
     DEFAULT_MEASUREMENTS[measurement] || {}
+  end
+
+  def self.label_for(representation)
+    representation.nil? ? '' : LABELS[representation]
   end
 end
 

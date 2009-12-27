@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__),'..','spec_helper')
 describe ARMeasurementAttributes::Core do
   before(:all) do
     length_options = { :internal => :kilometres, :external => :miles }
-    ARMeasurementAttributes::DEFAULT_MEASUREMENTS[:length] = length_options
+    ARMeasurementAttributes.default_measurements[:length] = length_options
   end
   before(:each) do
     @value = ARMeasurementAttributes::Value.new(:length, 15, {})

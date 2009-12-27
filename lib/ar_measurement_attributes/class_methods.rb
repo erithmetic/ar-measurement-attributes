@@ -1,11 +1,11 @@
 module ARMeasurementAttributes
   # Class methods that are inserted into ActiveRecord::Base.  
   # DSL Methods are automagically created for each measurement 
-  # type defined in ARMeasurementAttributes::DEFAULT_MEASUREMENTS.
+  # type defined in ARMeasurementAttributes.default_measurements.
   # The methods defined here are simply placeholders for 
   # documentation.
   # To customize the types of measurements that can be defined,
-  # see ARMeasurementAttributes::DEFAULT_MEASUREMENTS
+  # see ARMeasurementAttributes::default_measurements
   module ClassMethods
     def area(name, custom_options = {}); end
     def biomass(name, custom_options = {}); end
@@ -21,6 +21,6 @@ module ARMeasurementAttributes
   end
 end
 
-ARMeasurementAttributes::DEFAULT_MEASUREMENTS.keys.each do |measurement|
+ARMeasurementAttributes.default_measurements.keys.each do |measurement|
   ARMeasurementAttributes::DSL.add_class_method(measurement)
 end

@@ -10,7 +10,7 @@ describe ARMeasurementAttributes::Core do
 
   before(:all) do
     length_options = { :internal => :kilometres, :external => :miles }
-    ARMeasurementAttributes::DEFAULT_MEASUREMENTS[:length] = length_options
+    ARMeasurementAttributes.default_measurements[:length] = length_options
   end
 
   before(:each) do
@@ -37,7 +37,7 @@ describe ARMeasurementAttributes::Core do
   describe :compile_options do
     before(:all) do
       length_options = { :internal => :kilometres, :external => :miles }
-      ARMeasurementAttributes::DEFAULT_MEASUREMENTS[:length] = length_options
+      ARMeasurementAttributes.default_measurements[:length] = length_options
     end
     it "should return the measurement's default options if no other options are defined" do
       ARMeasurementAttributes::Core.compile_options(:length, {}, {}).

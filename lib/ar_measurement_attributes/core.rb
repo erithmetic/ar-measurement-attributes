@@ -3,7 +3,7 @@ module ARMeasurementAttributes
   # to the attributes on the ActiveRecord object
   class Core
     class << self
-      # Dynamically creates a getter for a named measurement (see #create_attribute)
+      # Dynamically creates a getter for a named measurement (see ARMeasurementAttributes::DSL#create_attribute)
       def define_getter(target_klass, measurement, name, defined_options = {})
         target_klass.send(:define_method, name) do |*args|
           runtime_options = args.first || {}
@@ -12,7 +12,7 @@ module ARMeasurementAttributes
         end
       end
 
-      # Dynamically creates a setter for a named measurement (see #create_attribute)
+      # Dynamically creates a setter for a named measurement (see ARMeasurementAttributes::DSL#create_attribute)
       def define_setter(target_klass, measurement, base_name, default_options = {})
         name = "#{base_name}=".to_sym
         target_klass.send(:define_method, name) do |value|

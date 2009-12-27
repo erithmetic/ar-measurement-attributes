@@ -1,3 +1,4 @@
+# Main module for ARMeasurementAttributes gem. See README
 module ARMeasurementAttributes
   # The map of measurement types and the default internal/external 
   # representations

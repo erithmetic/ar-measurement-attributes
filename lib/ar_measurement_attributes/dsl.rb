@@ -1,4 +1,6 @@
 module ARMeasurementAttributes
+  # Class for defining DSL class-level methods and translating 
+  # defined attributes into getters and setters
   class DSL
     class << self
       # Adds a new type of measurement to the DSL

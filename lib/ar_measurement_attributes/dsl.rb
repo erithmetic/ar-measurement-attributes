@@ -23,24 +23,6 @@ module ARMeasurementAttributes
         ARMeasurementAttributes::Core.define_getter(target_klass, measurement, name, options)
         ARMeasurementAttributes::Core.define_setter(target_klass, measurement, name, options)
       end
-
-      # Dynamically creates a getter for a named measurement (see #create_attribute)
-      def define_getter(target_klass, measurement, name, defined_options = {})
-        target_klass.send(:define_method, name) do |*args|
-          runtime_options = args.first || {}
-          ARMeasurementAttributes::Core.
-            read_measurement(self, measurement, name, defined_options, runtime_options)
-        end
-      end
-
-      # Dynamically creates a setter for a named measurement (see #create_attribute)
-      def define_setter(target_klass, measurement, base_name, default_options = {})
-        name = "#{base_name}=".to_sym
-        target_klass.send(:define_method, name) do |value|
-          ARMeasurementAttributes::Core.
-            write_measurement(self, base_name, value)
-        end
-      end
     end
   end
 end

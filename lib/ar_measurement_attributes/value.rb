@@ -18,10 +18,12 @@ module ARMeasurementAttributes
       self.options = (options || {})
     end
 
+    # The scale/precision used for display of measurement
     def scale
       scale = options[:precision] || options[:scale]
     end
     
+    # Converts and scales a measurement to the external representation
     def convert_measurement
       return convert_percentage if measurement == :percentage
       return internal_value if options[:internal].nil? || options[:external].nil?
@@ -31,6 +33,7 @@ module ARMeasurementAttributes
       internal_value.convert(*args)
     end
 
+    # Converts percentage values from a decimal <= 1 to a number <= 100
     def convert_percentage
       percentage = internal_value * 100
 
@@ -41,6 +44,7 @@ module ARMeasurementAttributes
       end
     end
 
+    # Add the appropriate label to the measurement
     def label_measurement(value)
       return value.to_s if options[:external].nil?
 
@@ -53,6 +57,8 @@ module ARMeasurementAttributes
       end
     end
 
+    # Output the value in pretty print or raw value according 
+    # to whether options[:pretty] is set to true
     def output
       if options[:pretty]
         to_s
@@ -61,6 +67,8 @@ module ARMeasurementAttributes
       end
     end
 
+    # Display the measurement with its label, converted to 
+    # external representation
     def to_s
       converted_value = convert_measurement
       label_measurement(converted_value)

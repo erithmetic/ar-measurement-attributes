@@ -6,7 +6,7 @@ module ARMeasurementAttributes
     s.author    =   "Derek Kastner"
     s.email     =   "dkastner@gmail.com"
     s.summary   =   "Measurement attributes for ActiveRecord objects"
-    s.files     =   Dir.glob('lib/**/*.rb')
+    s.files     =   Dir.glob('lib/**/*.rb') + ['rails/init.rb']
     s.require_path  =   "lib"
     s.test_files = Dir.glob('spec/**/*') + Dir.glob('integration/**/*')
     s.has_rdoc  =   true

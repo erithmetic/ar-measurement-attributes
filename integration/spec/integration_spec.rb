@@ -1,23 +1,26 @@
-require 'rubygems'
-require 'active_record'
 require File.join(File.dirname(__FILE__),'spec_helper')
-require File.join(File.dirname(__FILE__),'..','rails','init')
 
-class Automobile < ActiveRecord::Base
-  percentage :urbanity
-  length :weekly_distance_estimate
-  price :weekly_cost_estimate
+describe 'initialization' do
+  it 'should extend ActiveRecord::Base with ARMeasurementAttributes::ClassMethods' do
+    ActiveRecord::Base.should be_a_kind_of(ARMeasurementAttributes::ClassMethods)
+  end
 end
-
-class Boat < ActiveRecord::Base
-  length :weekly_distance_estimate, :external => :nautical_miles # override default external unit
-end
-
-class Candy < ActiveRecord::Base
-  price :price, :precision => 2 # override default precision
-end
-
+__END__
 describe ARMeasurementAttributes do
+  class Automobile < ActiveRecord::Base
+    percentage :urbanity
+    length :weekly_distance_estimate
+    price :weekly_cost_estimate
+  end
+
+  class Boat < ActiveRecord::Base
+    length :weekly_distance_estimate, :external => :nautical_miles # override default external unit
+  end
+
+  class Candy < ActiveRecord::Base
+    price :price, :precision => 2 # override default precision
+  end
+
   def automobile
     @automobile ||= Automobile.create(
       :urbanity => 0.74999999999999999999999,

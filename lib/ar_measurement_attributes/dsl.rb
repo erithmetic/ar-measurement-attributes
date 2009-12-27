@@ -18,8 +18,8 @@ module ARMeasurementAttributes
       #  end
       # Will create a getter and setter for a new #meat_mass attribute
       def create_attribute(target_klass, measurement, name, options = {})
-        define_getter(target_klass, measurement, name, options)
-        define_setter(target_klass, measurement, name, options)
+        ARMeasurementAttributes::Core.define_getter(target_klass, measurement, name, options)
+        ARMeasurementAttributes::Core.define_setter(target_klass, measurement, name, options)
       end
 
       # Dynamically creates a getter for a named measurement (see #create_attribute)

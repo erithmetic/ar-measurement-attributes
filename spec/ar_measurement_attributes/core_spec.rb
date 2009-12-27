@@ -23,32 +23,18 @@ describe ARMeasurementAttributes::Core do
       @instance = CoreHarness.new
     end
     it 'should define a method on the target class with the given name' do
-      @instance.should respond_to(:entfernung)
+      @instance.should respond_to(:pretty_entfernung)
     end
     it 'should delegate the call to :read_measurement' do
       ARMeasurementAttributes::Core.should_receive(:read_measurement).
         with(@instance, :length, :entfernung, {:precision => 1}, {}) 
-      @instance.entfernung
+      @instance.pretty_entfernung
     end
     it 'should send any runtime options to :read_measurement' do
       ARMeasurementAttributes::Core.should_receive(:read_measurement).
         with(@instance, :length, :entfernung, {:precision => 1}, {:entwicklung => :ausblick_des_flusses})
 
-      @instance.entfernung(:entwicklung => :ausblick_des_flusses)
-    end
-  end
-
-  describe :define_setter do
-    before(:all) do
-      ARMeasurementAttributes::Core.define_setter(CoreHarness, :length, :longitud)
-      @instance = CoreHarness.new
-    end
-    it 'should define a method on the target class with the given name' do
-      @instance.should respond_to(:longitud=)
-    end
-    it 'should delegate the call to :read_measurement' do
-      ARMeasurementAttributes::Core.should_receive(:write_measurement).with(@instance, :longitud, 3)
-      @instance.longitud = 3
+      @instance.pretty_entfernung(:entwicklung => :ausblick_des_flusses)
     end
   end
 
@@ -59,14 +45,6 @@ describe ARMeasurementAttributes::Core do
         and_return(mock(Object, :output => 3))
 
       ARMeasurementAttributes::Core.read_measurement(@instance, :coolness, :i_phonity)
-    end
-  end
-
-  describe :write_measurement do
-    it 'should proxy :distance= calls to write_distance' do
-      @instance.should_receive(:write_attribute).with(:cry_for_survival, 5)
-
-      ARMeasurementAttributes::Core.write_measurement(@instance, :cry_for_survival, 5)
     end
   end
 

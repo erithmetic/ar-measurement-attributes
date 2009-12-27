@@ -5,19 +5,10 @@ module ARMeasurementAttributes
     class << self
       # Dynamically creates a getter for a named measurement (see ARMeasurementAttributes::DSL#create_attribute)
       def define_getter(target_klass, measurement, name, defined_options = {})
-        target_klass.send(:define_method, name) do |*args|
+        target_klass.send(:define_method, "pretty_#{name}") do |*args|
           runtime_options = args.first || {}
           ARMeasurementAttributes::Core.
             read_measurement(self, measurement, name, defined_options, runtime_options)
-        end
-      end
-
-      # Dynamically creates a setter for a named measurement (see ARMeasurementAttributes::DSL#create_attribute)
-      def define_setter(target_klass, measurement, base_name, default_options = {})
-        name = "#{base_name}=".to_sym
-        target_klass.send(:define_method, name) do |value|
-          ARMeasurementAttributes::Core.
-            write_measurement(self, base_name, value)
         end
       end
 
@@ -28,11 +19,6 @@ module ARMeasurementAttributes
         stored_value = ar_object.read_attribute(name)
         value = ARMeasurementAttributes::Value.new(measurement, stored_value, options)
         value.to_s
-      end
-
-      # Writes a measurement attribute to an ActiveRecord object
-      def write_measurement(ar_object, name, value)
-        ar_object.write_attribute(name, value)
       end
 
       # Merges default measurement options with DSL-specified options and runtime options

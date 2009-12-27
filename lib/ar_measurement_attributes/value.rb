@@ -64,16 +64,6 @@ module ARMeasurementAttributes
       end
     end
 
-    # Output the value in pretty print or raw value according 
-    # to whether options[:pretty] is set to true
-    def output
-      if options[:pretty]
-        to_s
-      else
-        internal_value
-      end
-    end
-
     # Display the measurement with its label, converted to 
     # external representation
     def to_s

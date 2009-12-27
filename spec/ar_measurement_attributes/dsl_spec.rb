@@ -7,15 +7,9 @@ end
 
 describe ARMeasurementAttributes::DSL do
   describe :create_attribute do
-    before(:all) do
-      ARMeasurementAttributes::DSL.create_attribute(TestHarness, :length, :distance)
-      @instance = TestHarness.new
-    end
     it 'should define a getter' do
-      @instance.should respond_to(:distance)
-    end
-    it 'should define a setter' do
-      @instance.should respond_to(:distance=)
+      ARMeasurementAttributes::Core.should_receive(:define_getter)
+      ARMeasurementAttributes::DSL.create_attribute(TestHarness, :length, :distance)
     end
   end
 end

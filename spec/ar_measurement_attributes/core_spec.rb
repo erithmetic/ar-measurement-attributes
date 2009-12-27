@@ -75,14 +75,6 @@ describe ARMeasurementAttributes::Core do
       length_options = { :internal => :kilometres, :external => :miles }
       ARMeasurementAttributes.default_measurements[:length] = length_options
     end
-    it 'should set runtime options to :pretty => true if :pretty option is given' do
-      ARMeasurementAttributes::Core.compile_options(:length, {}, :pretty).
-        should include(:internal => :kilometres, :external => :miles, :pretty => true)
-    end
-    it 'should return the pretty-formatted data if the options param is true' do
-      ARMeasurementAttributes::Core.compile_options(:length, {}, true).
-        should include(:internal => :kilometres, :external => :miles, :pretty => true)
-    end
     it "should return the measurement's default options if no other options are defined" do
       ARMeasurementAttributes::Core.compile_options(:length, {}, {}).
         should == { :internal => :kilometres, :external => :miles }

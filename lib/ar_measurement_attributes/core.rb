@@ -27,7 +27,7 @@ module ARMeasurementAttributes
         options = compile_options(measurement, dsl_options, runtime_options)
         stored_value = ar_object.read_attribute(name)
         value = ARMeasurementAttributes::Value.new(measurement, stored_value, options)
-        value.output
+        value.to_s
       end
 
       # Writes a measurement attribute to an ActiveRecord object
@@ -37,9 +37,6 @@ module ARMeasurementAttributes
 
       # Merges default measurement options with DSL-specified options and runtime options
       def compile_options(measurement, dsl_options = {}, runtime_options = {})
-        if runtime_options === true || runtime_options == :pretty
-          runtime_options = { :pretty => true }
-        end
         options = ARMeasurementAttributes.measurement_options_for(measurement)
         options.merge!(dsl_options)
         options.merge!(runtime_options)

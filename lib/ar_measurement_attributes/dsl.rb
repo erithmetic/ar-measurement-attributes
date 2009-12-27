@@ -1,6 +1,6 @@
 module ARMeasurementAttributes
   # Class for defining DSL class-level methods and translating 
-  # defined attributes into getters and setters
+  # defined attributes into pretty getters
   class DSL
     class << self
       # Adds a new type of measurement to the DSL
@@ -18,10 +18,9 @@ module ARMeasurementAttributes
       #  class Sauce < ActiveRecord::Base
       #    mass :meat_mass
       #  end
-      # Will create a getter and setter for a new #meat_mass attribute
+      # Will create a method #pretty_meat_mass that converts the #meat_mass attribute
       def create_attribute(target_klass, measurement, name, options = {})
         ARMeasurementAttributes::Core.define_getter(target_klass, measurement, name, options)
-        ARMeasurementAttributes::Core.define_setter(target_klass, measurement, name, options)
       end
     end
   end

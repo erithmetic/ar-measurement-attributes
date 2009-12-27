@@ -8,18 +8,6 @@ describe ARMeasurementAttributes::Core do
     @value = ARMeasurementAttributes::Value.new(:length, 15, @length_options)
   end
 
-  describe :output do
-    it 'should return the raw data by default' do
-      @value.should_receive(:internal_value)
-      @value.output
-    end
-    it 'should return the string representation if the options param is a hash containing :pretty => true' do
-      @value.options = { :pretty => true }
-      @value.should_receive(:to_s)
-      @value.output
-    end
-  end
-
   describe :convert_measurement do
     it 'should convert the internal value from its internal representation into the external representation' do
       @value.internal_value = 18.888883
@@ -88,12 +76,9 @@ describe ARMeasurementAttributes::Core do
     before(:each) do
       @value.options[:precision] = 2
     end
-    it 'should return the raw data by default' do
-      @value.output.should == 15
-    end
-    it 'should return the pretty-formatted data if the options param is a hash containing :pretty => true' do
+    it 'should return the pretty-formatted data' do
       @value.options[:pretty] = true
-      @value.output.should == '9.32mi'
+      @value.to_s.should == '9.32mi'
     end
   end
 end

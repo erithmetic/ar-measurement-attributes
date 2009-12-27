@@ -19,14 +19,28 @@ module ARMeasurementAttributes
         @options = default_options.merge(val)
       end
     end
+
+    def scale
+      scale = options[:precision] || options[:scale]
+    end
     
     def convert_measurement
+      return convert_percentage if measurement == :percentage
       return internal_value if options[:internal].nil? || options[:external].nil?
 
-      scale = options[:precision] || options[:scale]
       args = [options[:internal], options[:external]]
       args << { :scale => scale } if scale
       internal_value.convert(*args)
+    end
+
+    def convert_percentage
+      percentage = internal_value * 100
+
+      if scale
+        ("%.#{scale}f" % percentage).to_f
+      else
+        percentage
+      end
     end
 
     def label_measurement(value)
@@ -34,7 +48,11 @@ module ARMeasurementAttributes
 
       label = ARMeasurementAttributes.label_for(options[:external])
 
-      options[:prefix] ? "#{label}#{value}" : "#{value}#{label}"
+      if options[:prefix]
+        "#{label}#{value}"
+      else
+        "#{value}#{label}"
+      end
     end
 
     def output

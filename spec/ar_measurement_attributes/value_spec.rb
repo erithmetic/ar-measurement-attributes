@@ -55,6 +55,19 @@ describe ARMeasurementAttributes::Core do
       @value.internal_value = 19.23232323
       @value.convert_measurement.should == 11.9504
     end
+    it 'should convert percentages from a decimal <= 1 to a number <= 100 with a given scale' do
+      @value.options = { :precision => 2 }
+      @value.measurement = :percentage
+      @value.internal_value = 0.76542
+
+      @value.convert_measurement.should == 76.54
+    end
+    it 'should convert percentages with no scale specified' do
+      @value.measurement = :percentage
+      @value.internal_value = 0.76542
+
+      @value.convert_measurement.should == 76.542
+    end
   end
 
   describe :label_measurement do

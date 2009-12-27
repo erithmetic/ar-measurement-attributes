@@ -62,12 +62,12 @@ module ARMeasurementAttributes
 
   # Used internally by DSL to retrieve default measurement options
   def self.measurement_options_for(measurement)
-    default_measurements[measurement] || {}
+    default_measurements[measurement].dup || {}
   end
 
   # Used internally by DSL to retrieve labels
   def self.label_for(representation)
-    representation.nil? ? '' : labels[representation]
+    representation.nil? ? '' : labels[representation].dup
   end
 end
 

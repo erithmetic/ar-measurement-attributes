@@ -2,9 +2,16 @@ require 'active_resource'
 require 'conversions'
 
 module ARMeasurementAttributes
+  # Class used to convert internal representations of measurement 
+  # attributes into external representations, according to defined 
+  # options
   class Value
     attr_accessor :measurement, :internal_value, :options
 
+    # Parameters:
+    #  * measurement - the type of measurement (e.g. :length)
+    #  * internal_value - the metric value of the measurement
+    #  * options - all default, DSL, and runtime options
     def initialize(measurement, internal_value, options)
       self.measurement = measurement
       self.internal_value = internal_value

@@ -21,6 +21,8 @@ module ARMeasurementAttributes
         end
       end
 
+      # Reads a measurement attribute from the ActiveRecord object and formatted according to 
+      # options
       def read_measurement(ar_object, measurement, name, dsl_options = {}, runtime_options = {})
         options = compile_options(measurement, dsl_options, runtime_options)
         stored_value = ar_object.read_attribute(name)
@@ -28,10 +30,12 @@ module ARMeasurementAttributes
         value.output
       end
 
+      # Writes a measurement attribute to an ActiveRecord object
       def write_measurement(ar_object, name, value)
         ar_object.write_attribute(name, value)
       end
 
+      # Merges default measurement options with DSL-specified options and runtime options
       def compile_options(measurement, dsl_options = {}, runtime_options = {})
         options = ARMeasurementAttributes.measurement_options_for(measurement)
         options.merge!(dsl_options)

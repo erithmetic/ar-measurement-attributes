@@ -15,7 +15,7 @@ module ARMeasurementAttributes
     @@default_measurements = {
       :area                 =>  { :internal => :square_metres,         :external => :square_feet },
       :biomass              =>  { :internal => :joules,                :external => :cords },
-      :cost                 =>  { :internal => :dollars,               :external => :dollars },           # according to tradition should be cents
+      :cost                 =>  { :internal => :dollars,               :external => :dollars, :precision => 2},           # according to tradition should be cents
       :length               =>  { :internal => :kilometres,            :external => :miles },             # according to SI should be in metres
       :length_per_volume    =>  { :internal => :kilometres_per_litre,  :external => :miles_per_gallon },
       :mass                 =>  { :internal => :kilograms,             :external => :pounds },
@@ -23,7 +23,7 @@ module ARMeasurementAttributes
       :speed                =>  { :internal => :kilometres_per_hour,   :external => :miles_per_hour },
       :time                 =>  { :internal => :hours,                 :external => :hours },             # according to SI should be seconds
       :volume               =>  { :internal => :litres,                :external => :gallons },
-      :percentage           =>  { :internal => :percentage,            :external => :percentage },
+      :percentage           =>  { :internal => :percentage,            :external => :percentage, :precision => 0 },
       :price                =>  { :internal => :dollars,               :external => :dollars },
     }
   end

@@ -1,4 +1,14 @@
 module ARMeasurementAttributes
+  # The map of measurement types and the default internal/external 
+  # representations
+  # 
+  # You can add your own type of measurement to the ActiveRecord DSL:
+  #  ARMeasurementAttributes.default_measurements[:awesomeness] = { :internal => :quintessence, :external => :charisma }
+  #
+  # Then in your ActiveRecord definition:
+  #  class Computer < ActiveRecord::Base
+  #    awesomeness :dudicality
+  #  end
   def self.default_measurements
     return @@default_measurements if defined?(@@default_measurements)
     @@default_measurements = {
@@ -19,6 +29,8 @@ module ARMeasurementAttributes
     @@default_measurements = val
   end
 
+  # The map of measurement units and the desired labels for those units.
+  # Add a new definition simply by ARMeasurementAttributes.labels[:my_unit] = 'mu'
   def self.labels
     return @@labels if defined?(@@labels)
     @@labels = {
@@ -41,14 +53,18 @@ module ARMeasurementAttributes
       :percentage => '%'
     }
   end
+
+  # Add a new unit label definition by ARMeasurementAttributes.labels[:my_unit] = 'mu'
   def self.labels=(val)
     @@labels = val
   end
 
+  # Used internally by DSL to retrieve default measurement options
   def self.measurement_options_for(measurement)
     default_measurements[measurement] || {}
   end
 
+  # Used internally by DSL to retrieve labels
   def self.label_for(representation)
     representation.nil? ? '' : labels[representation]
   end

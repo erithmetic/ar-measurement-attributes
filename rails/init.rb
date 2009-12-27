@@ -1,11 +1,3 @@
-module ARMeasurementAttributes
-  module Rails
-    class Initializer
-      def self.init
-        ActiveRecord::Base.send(:extend, ARMeasurementAttributes::ClassMethods)
-      end
-    end
-  end
-end
+require 'ar_measurement_attributes'
 
-ARMeasurementAttributes::Rails::Initializer.init
+ActiveRecord::Base.send(:extend, ARMeasurementAttributes::ClassMethods)

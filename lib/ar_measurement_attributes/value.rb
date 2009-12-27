@@ -29,31 +29,30 @@ module ARMeasurementAttributes
       return internal_value if options[:internal].nil? || options[:external].nil?
 
       args = [options[:internal], options[:external]]
-      args << { :scale => scale } if scale
       converted_value = internal_value.convert(*args)
-      if scale == 0
-        converted_value.truncate
-      else
-        converted_value
-      end
+      
+      scale_value(converted_value)
     end
 
     # Converts percentage values from a decimal <= 1 to a number <= 100
     def convert_percentage
-      percentage = internal_value * 100
+      percentage = internal_value * 100.0
+      scale_value(percentage)
+    end
 
+    def scale_value(value)
       if scale == 0
-        percentage.truncate
+        value.truncate
       elsif scale
-        ("%.#{scale}f" % percentage).to_f
+        "%.#{scale}f" % value.round_with_precision(scale)
       else
-        percentage
+        value.to_s
       end
     end
 
     # Add the appropriate label to the measurement
     def label_measurement(value)
-      return value.to_s if options[:external].nil?
+      return value if options[:external].nil?
 
       label = ARMeasurementAttributes.label_for(options[:external])
 

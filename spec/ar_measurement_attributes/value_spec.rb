@@ -11,26 +11,17 @@ describe ARMeasurementAttributes::Core do
   describe :convert_measurement do
     it 'should convert the internal value from its internal representation into the external representation' do
       @value.internal_value = 18.888883
-      @value.convert_measurement.should be_close(11.737, 0.001)
+      @value.convert_measurement.should == '11.7370077497415'
     end
     it 'should not do any conversion if the formats given are nil' do
       @value.options = { :internal => nil, :external => nil }
       @value.internal_value = 18.8
       @value.convert_measurement.should == 18.8
     end
-    it 'should include a scale argument to the call to conversion if precision is specified' do
-      @value.options[:precision] = 1
-      mock_fixnum = mock(Fixnum)
-      @value.stub!(:internal_value).and_return(mock_fixnum)
-      mock_fixnum.should_receive(:convert).
-        with(:kilometres, :miles, { :scale => 1 })
-
-      @value.convert_measurement
-    end
     it 'should format the value with a given precision' do
       @value.options[:precision] = 4
       @value.internal_value = 19.23232323
-      @value.convert_measurement.should == 11.9504
+      @value.convert_measurement.should == '11.9504'
     end
     it 'should show no decimal places with precision of 0' do
       @value.options[:precision] = 0
@@ -41,14 +32,14 @@ describe ARMeasurementAttributes::Core do
       @value.measurement = :percentage
       @value.internal_value = 0.76542
 
-      @value.convert_measurement.should == 76.54
+      @value.convert_measurement.should == '76.54'
     end
     it 'should convert percentages with no scale specified' do
       @value.options[:precision] = nil
       @value.measurement = :percentage
       @value.internal_value = 0.76542
 
-      @value.convert_measurement.should == 76.542
+      @value.convert_measurement.should == '76.542'
     end
     it 'should show no decimal places for a percentage with precision of 0' do
       @value.options[:precision] = 0
@@ -60,15 +51,15 @@ describe ARMeasurementAttributes::Core do
 
   describe :label_measurement do
     it 'should add a label to the end of the measurement' do
-      @value.label_measurement(23).should == '23mi'
+      @value.label_measurement('23').should == '23mi'
     end
     it 'should prefix a label if the :prefix option is true' do
       @value.options[:external] = :dollars
-      @value.label_measurement(23).should == '$23'
+      @value.label_measurement('23').should == '$23'
     end
     it 'should not label the value if the external representation is nil' do
       @value.options[:external] = nil
-      @value.label_measurement(23).should == '23'
+      @value.label_measurement('23').should == '23'
     end
   end
 

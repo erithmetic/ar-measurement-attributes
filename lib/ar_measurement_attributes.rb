@@ -24,6 +24,7 @@ module ARMeasurementAttributes
       :time                 =>  { :internal => :hours,                 :external => :hours },             # according to SI should be seconds
       :volume               =>  { :internal => :litres,                :external => :gallons },
       :percentage           =>  { :internal => :percentage,            :external => :percentage },
+      :price                =>  { :internal => :dollars,               :external => :dollars },
     }
   end
   def self.default_measurements=(val)

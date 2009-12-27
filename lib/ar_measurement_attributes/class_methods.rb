@@ -15,6 +15,7 @@ module ARMeasurementAttributes
     def length_per_volume(name, custom_options = {}); end
     def mass(name, custom_options = {}); end
     def percentage(name, custom_options = {}); end
+    def price(name, custom_options = {}); end
     def speed(name, custom_options = {}); end
     def time(name, custom_options = {}); end
     def volume(name, custom_options = {}); end

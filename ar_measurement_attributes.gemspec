@@ -2,7 +2,7 @@ module ARMeasurementAttributes
   GEMSPEC = Gem::Specification.new do |s|
     s.platform  =   Gem::Platform::RUBY
     s.name      =   "ar_measurement_attributes"
-    s.version   =   "0.1.0"
+    s.version   =   "1.0.1"
     s.author    =   "Derek Kastner"
     s.email     =   "dkastner@gmail.com"
     s.summary   =   "Measurement attributes for ActiveRecord objects"

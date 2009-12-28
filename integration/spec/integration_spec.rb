@@ -10,7 +10,7 @@ describe ARMeasurementAttributes do
   class Automobile < ActiveRecord::Base
     percentage :urbanity, :precision => 0
     length :weekly_distance_estimate
-    price :weekly_cost_estimate
+    cost :weekly_cost_estimate
   end
 
   class Boat < ActiveRecord::Base

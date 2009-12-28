@@ -11,6 +11,15 @@ module ARMeasurementAttributes
         end 
       end
 
+      # Adds a runtime-defined type of measurement to the DSL
+      def add_activerecord_dsl_method(measurement)
+        add_class_method(measurement)
+        ActiveRecord::Base.
+          send(:extend, ARMeasurementAttributes::ClassMethods) # this is much cleaner than class_eval, 
+                                                               # but it will nuke any runtime re-definitions 
+                                                               # of the measurement DSL methods
+      end
+
       # Dynamically creates getters and setters for a named measurement
       # defined by the user's ActiveRecord definition
       #

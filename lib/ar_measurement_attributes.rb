@@ -31,6 +31,11 @@ module ARMeasurementAttributes
     @@default_measurements = val
   end
 
+  def self.add_measurement(name, options)
+    self.default_measurements[name] = options
+    ARMeasurementAttributes::DSL.add_activerecord_dsl_method(name)
+  end
+
   # The map of measurement units and the desired labels for those units.
   # Add a new definition simply by ARMeasurementAttributes.labels[:my_unit] = 'mu'
   def self.labels

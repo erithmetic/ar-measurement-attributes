@@ -63,5 +63,13 @@ describe ARMeasurementAttributes do
     automobile.urbanity = nil
     automobile.pretty_urbanity.should be_nil
   end
-
+  it 'should allow custom measurement types to be defined' do
+    ARMeasurementAttributes.add_measurement(:magical_ability, :internal => :mana, :external => :wizardry)
+    ActiveRecord::Base.should respond_to(:magical_ability)
+    lambda {
+      class Liger < ActiveRecord::Base
+        magical_ability :magical_skills
+      end
+    }.should_not raise_error(NoMethodError)
+  end
 end

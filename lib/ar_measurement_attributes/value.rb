@@ -40,6 +40,7 @@ module ARMeasurementAttributes
       scale_value(percentage)
     end
 
+    # Scale the value to the specified precision
     def scale_value(value)
       if scale == 0
         value.truncate

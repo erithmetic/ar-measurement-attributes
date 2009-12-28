@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  urbanity: 1.5
+  weekly_distance_estimate: 1.5
+  weekly_cost_estimate: 1.5
+
+two:
+  urbanity: 1.5
+  weekly_distance_estimate: 1.5
+  weekly_cost_estimate: 1.5

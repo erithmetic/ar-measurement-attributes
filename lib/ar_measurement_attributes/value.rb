@@ -42,13 +42,13 @@ module ARMeasurementAttributes
 
     # Scale the value to the specified precision
     def scale_value(value)
-      if scale == 0
-        value.truncate
-      elsif scale
-        "%.#{scale}f" % value.round_with_precision(scale)
-      else
-        value.to_s
+      value = "%.#{scale}f" % value if scale
+      if options[:hide_zeros_for_whole_numbers] &&
+        value =~ /\d+\.0+/
+        value = value.to_i
       end
+
+      value.to_s
     end
 
     # Add the appropriate label to the measurement

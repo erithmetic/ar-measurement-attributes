@@ -55,7 +55,7 @@ describe ARMeasurementAttributes do
     automobile.pretty_weekly_cost_estimate.should == "$45.87"
 
     boat.pretty_weekly_distance_estimate.should == "12.43mi"
-    boat.pretty_displacement.should == "9 tons"
+    boat.pretty_displacement.should == "10 tons"
 
     candy.pretty_price.should == "$12.00"
   end

@@ -23,10 +23,6 @@ describe ARMeasurementAttributes::Core do
       @value.internal_value = 19.23232323
       @value.convert_measurement.should == '11.9504'
     end
-    it 'should show no decimal places with precision of 0' do
-      @value.options[:precision] = 0
-      @value.convert_measurement.to_s.should == '9'
-    end
     it 'should convert percentages from a decimal <= 1 to a number <= 100 with a given scale' do
       @value.options[:precision] = 2
       @value.measurement = :percentage
@@ -41,11 +37,22 @@ describe ARMeasurementAttributes::Core do
 
       @value.convert_measurement.should == '76.542'
     end
-    it 'should show no decimal places for a percentage with precision of 0' do
-      @value.options[:precision] = 0
-      @value.measurement = :percentage
-      @value.internal_value = 0.76542
-      @value.convert_measurement.to_s.should == '76'
+  end
+
+  describe :scale_value do
+    before(:each) do
+      @value.options[:precision] = 2
+    end
+    it 'should show decimal places if the :hide_zeros_for_whole_numbers option is not set and the number is whole' do
+      @value.scale_value(1.0000).to_s.should == '1.00'
+    end
+    it 'should show no decimal places if the :hide_zeros_for_whole_numbers option is set and the number is whole' do
+      @value.options[:hide_zeros_for_whole_numbers] = true
+      @value.scale_value(1.0000).to_s.should == '1'
+    end
+    it 'should show decimal places if the :hide_zeros_for_whole_numbers option is set and the number is not whole' do
+      @value.options[:hide_zeros_for_whole_numbers] = true
+      @value.scale_value(1.77).to_s.should == '1.77'
     end
   end
 
@@ -77,6 +84,12 @@ describe ARMeasurementAttributes::Core do
     it 'should return the pretty-formatted data' do
       @value.options[:pretty] = true
       @value.to_s.should == '9.32mi'
+    end
+    it 'should format a price with a whole amount of dollars with no decimal places' do
+      value = ARMeasurementAttributes::Value.new(:cost, 12.0, 
+                                                 :precision => 2, :hide_zeros_for_whole_numbers => true,
+                                                 :internal => :dollars, :external => :dollars)
+      value.to_s.should == '$12'
     end
   end
 end

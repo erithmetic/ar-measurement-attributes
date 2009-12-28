@@ -19,7 +19,7 @@ describe ARMeasurementAttributes do
   end
 
   class Candy < ActiveRecord::Base
-    price :price, :precision => 2 # override default precision
+    cost :price, :precision => 2 # override default precision
   end
 
   def automobile
@@ -57,10 +57,11 @@ describe ARMeasurementAttributes do
     boat.pretty_weekly_distance_estimate.should == "12.43mi"
     boat.pretty_displacement.should == "10 tons"
 
-    candy.pretty_price.should == "$12.00"
+    candy.pretty_price.should == "$12"
   end
   it 'should correctly handle nil values' do
     automobile.urbanity = nil
     automobile.pretty_urbanity.should be_nil
   end
+
 end

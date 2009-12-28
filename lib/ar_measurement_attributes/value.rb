@@ -67,6 +67,7 @@ module ARMeasurementAttributes
     # Display the measurement with its label, converted to 
     # external representation
     def to_s
+      return nil if internal_value.nil?
       converted_value = convert_measurement
       label_measurement(converted_value)
     end

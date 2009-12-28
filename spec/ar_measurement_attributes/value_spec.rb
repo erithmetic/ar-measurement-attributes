@@ -63,6 +63,13 @@ describe ARMeasurementAttributes::Core do
     end
   end
 
+  describe :to_s do
+    it 'should return nil if the internal value is nil' do
+      @value.internal_value = nil
+      @value.to_s.should be_nil
+    end
+  end
+
   context 'integration' do
     before(:each) do
       @value.options[:precision] = 2

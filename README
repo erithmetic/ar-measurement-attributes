@@ -1,0 +1,47 @@
+= ARMeasurementAttributes
+
+Rails plugin for displaying measurement attributes.
+
+== Examples
+
+Assuming you have an attribute called 'distance' defined on your Trip model and you 
+would like to display it as a length measurement:
+
+class Trip < ActiveRecord::Base
+  length :distance, :internal => :kilometres, :external => :miles, :precision => 2
+end
+
+When you want to display distance in the external format:
+
+>> trip = Trip.new(:distance => 78.348)
+>> trip.pretty_distance
+#=> "48.68mi"
+
+== Adding Unit Conversions
+
+This gem relies on the conversions gem. Simply use the Conversions.register method 
+to add a new unit of conversion.
+
+== Measurement Options
+
+ * internal - the internal representation of the measurement. This is the format in 
+    which the data will be saved. All assignments to the attribute must be in this
+    unit of measurement.
+ * external - the external representation of the measurement. When the pretty_* 
+    method is called, the appropriate label is added to the output.
+ * precision - the number of decimal places to display. The value will be rounded.
+ * hide_zeros_for_whole_numbers - hide the decimal places if the value is a whole number.
+
+== Adding Measurement Types
+
+You can add your own measurement types and their default options via:
+
+ARMeasurementAttributes.default_measurements[:interplanetary_speed] = { 
+  :internal => :metres_per_second, :external => :parsecs
+}
+
+This will enable:
+
+class MilleniumFalcon < ActiveRecord::Base
+  interplanetary_speed :kessel_run_record
+end

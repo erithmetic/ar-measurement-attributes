@@ -1,0 +1,48 @@
+The plugin was designed to maximize ease of use and modularity.  The only 
+methods added to ActiveRecord::Base are the DSL methods for defining the 
+attributes and the accessors for the attributes.  All other functionality
+is put into class methods of ARMeasurementAttributes::DSL, and 
+ARMeasurementAttributes::Core, and ARMeasurementAttributes::Value.
+
+DSL dynamically defines the class-level methods that are added to 
+ActiveRecord::Base. These methods delegate definition of the instance-level 
+accessor methods for formatting attributes in the pretty-print format to 
+Core. Value manages the formatted output of the measurements.
+
+There are a few basic types of measurements defined in 
+ARMeasurementAttributes.default_measurements.  Each of these types are 
+converted into the class-level DSL methods used on the model. New 
+types can be added (see README) as needed.
+
+Initially, I had planned on using the following DSL:
+
+class Sample < ActiveRecord::Base
+  length :lifetime_mileage
+end
+s = Sample.new
+s.lifetime_mileage(:pretty)
+
+But this followed a design similar to ActiveRecord's find method, 
+e.g. Model.find(:first, :conditions => { :name => 'Bolivar' }) and 
+Model.find(:all). A method should have a single behavior, or 
+"meaning." This makes the API more descriptive. It also makes 
+testing a bit easier as you don't have to test as many branches. 
+In the case of Rails' finder methods, I prefer find_by_name in 
+place of find(:first ...).
+
+The new DSL:
+
+class Sample < ActiveRecord::Base
+  length :lifetime_mileage
+end
+s = Sample.new
+s.pretty_lifetime_mileage
+
+The #pretty_lifetime_mileage method applies only to displaying formatted 
+information.
+
+
+At one point I thought of defining a DSL for setting up the default 
+measurement types and conversion calculations. However, I thought 
+this went too far beyond the scope of the problem and using the 
+hash syntax was simple enough for adding new measurement types.

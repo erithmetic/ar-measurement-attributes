@@ -36,11 +36,13 @@ module ARMeasurementAttributes
   def self.labels
     return @@labels if defined?(@@labels)
     @@labels = {
-      :square_meters => 'm<sup>2</sup>',
-      :joules => 'J',
-      :squere_feet => 'ft<sup>2</sup>',
       :cords => ' cords',
+      :cubic_feet => 'ft<sup>3</sup>',
+      :cubic_metres => 'm<sup>3</sup>',
       :dollars => { :text => '$', :prefix => true },
+      :gallons => 'gal',
+      :grams => 'g',
+      :joules => 'J',
       :kilometres => 'km',
       :kilometres_per_litre => 'km/l',
       :kilowatt_hours => 'kwh',
@@ -48,11 +50,14 @@ module ARMeasurementAttributes
       :litres => 'l',
       :hours => 'h',
       :miles => 'mi',
-      :miles_per_hour => 'mph',
       :miles_per_gallon => 'mpg',
+      :miles_per_hour => 'mph',
+      :percentage => '%',
       :pounds => 'lbs',
-      :gallons => 'gal',
-      :percentage => '%'
+      :short_tons => ' short tons',
+      :square_meters => 'm<sup>2</sup>',
+      :square_feet => 'ft<sup>2</sup>',
+      :tons => ' tons',
     }
   end
 
